@@ -12,8 +12,10 @@ if(isset($_POST['url'])){
     $sql = "SELECT origin_url FROM shortened WHERE origin_url = '$url' ";
     $result = $conn->query($sql);
 
-    if($result->columnCount() == 0){
+
+    if(!$result){
         echo "Ya existe una url acortada a este sitio" . $url . "\n";
+        var_dump($result);
     } else {
         echo "Creando redirección";
         $permitted_chars = '0123456789abcdefghijklmnopqrstuvwxyz';
@@ -23,13 +25,16 @@ if(isset($_POST['url'])){
         echo $shortened . "\n";
         $result = $conn->query($sql);
 
-        if(!$result){
+
+
+        if($result->columnCount() == 0){
             echo "Ingreso exitoso";
         } else {
             echo "Ingreso fallido";
         }
     }
 
-} else {
+} else 
+{
     echo "No se ha escrito una url";
 }

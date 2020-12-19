@@ -1,3 +1,19 @@
+<?php
+require_once 'ConexionBDD.php';
+require_once 'Shortened.php';
+require_once 'Middleware.php';
+
+$conn = ConexionBDD::conectar();
+$sql = 'SELECT * FROM shortened';
+$result = $conn->query($sql);
+
+if($result->columnCount() == 0){
+    echo "No hay url acortadas";
+} else {
+    echo "Cargadas url acortasdas";
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,7 +28,7 @@
     <div class="container">
         <div class="row">
             <div class="col-sm-12 mx-auto">
-                <form action="redireccion.php" class="form-row" method="POST">
+                <form action="generarRedireccion.php" class="form-row" method="POST">
                     <div class="col-sm-6">
                         <input type="text" name="url" class="form-control">
                     </div>
@@ -22,6 +38,16 @@
                 </form>
             </div>
         </div>
+        <div class="row">
+            <h1>URL acortadas</h1>
+            <?php foreach($result as $row){ ?>
+                <a
+                href="<?php echo 'Middleware.php?shortened='.$row['shortened']; ?>">                    
+                    <?php echo $row['shortened']; ?>
+                </a>
+            <?php } ?>
+        </div>
+
     </div>
 </body>
 </html>

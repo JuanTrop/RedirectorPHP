@@ -2,6 +2,8 @@
 
 class ConexionBDD 
 {
+    
+
     static public function conectar()
     {
         $servername = "localhost";
@@ -21,5 +23,7 @@ class ConexionBDD
 
         return null;
     }
+
+    //static public function 
 
 }
